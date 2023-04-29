@@ -2,14 +2,9 @@ import moment from "moment";
 import React from "react";
 import { Card, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {
-  FaRegBookmark,
-  FaShareAlt,
-  FaEye,
-  FaRegStar,
-  FaStar,
-} from "react-icons/fa";
-import Rating from "react-rating";
+import { FaRegBookmark, FaShareAlt, FaEye } from "react-icons/fa";
+import { Rating, ThinStar } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
 
 const NewsCard = ({ news }) => {
   const { _id, title, details, image_url, author, rating, total_view } = news;
@@ -49,13 +44,16 @@ const NewsCard = ({ news }) => {
         </Card.Text>
       </Card.Body>
       <Card.Footer className="text-muted d-flex align-items-center">
-        <div className="flex-grow-1">
+        <div className="flex-grow-1 d-flex">
           <Rating
-            placeholderRating={rating?.number}
-            emptySymbol={<FaRegStar></FaRegStar>}
-            placeholderSymbol={<FaStar className="text-warning"></FaStar>}
-            fullSymbol={<FaStar></FaStar>}
-            readonly
+            style={{ maxWidth: 100 }}
+            value={Math.round(rating?.number || 0)}
+            itemStyles={{
+              itemShapes: ThinStar,
+              activeFillColor: "#ffb700",
+              inactiveFillColor: "#fbf1a9",
+            }}
+            readOnly
           />
           <span className="ps-2 fw-semibold">{rating?.number}</span>
         </div>
